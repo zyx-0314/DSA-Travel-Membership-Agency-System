@@ -100,6 +100,14 @@ void ListOfTravelsByLand(TravelByLandListNode*);
 void AddTravelsByLand(TravelByLandListNode*&, TravelByLandListNode*&, int&);
 void RegisterNewTravelByLand(TravelByLandListNode*, int&);
 
+void ListOfTravelsByWater(TravelByWaterListNode*);
+void AddTravelsByWater(TravelByWaterListNode*&, TravelByWaterListNode*&, int&);
+void RegisterNewTravelByWater(TravelByWaterListNode*, int&);
+
+void ListOfTravelsByAir(TravelByAirListNode*);
+void AddTravelsByAir(TravelByAirListNode*&, TravelByAirListNode*&, int&);
+void RegisterNewTravelByAir(TravelByAirListNode*, int&);
+
 // Helper Function
 void CinString(std::string&, std::string);
 
@@ -407,63 +415,70 @@ void DeleteMemberData(MemberListNode*& head, MemberListNode*& tail) {
 
 void TravelsList(MemberListNode* selected) {
 	int total = selected->memberData.travelCounterByAir + selected->memberData.travelCounterByLand + selected->memberData.travelCounterByWater;
-	switch (TravelDataMenu()) {
-	case 1:
-		switch (TypeOfTravelMenu(total))
-		{
+
+	while (true) {
+		switch (TravelDataMenu()) {
 		case 1:
-			ListOfTravelsByLand(selected->memberData.travelByLandhead);
+			switch (TypeOfTravelMenu(total))
+			{
+			case 1:
+				ListOfTravelsByLand(selected->memberData.travelByLandhead);
+				break;
+			case 2:
+				ListOfTravelsByAir(selected->memberData.travelByAirhead);
+				break;
+			case 3:
+				ListOfTravelsByWater(selected->memberData.travelByWaterhead);
+				break;
+			case 0:
+				return;
+			}
 			break;
 		case 2:
+			switch (TypeOfTravelMenu(total))
+			{
+			case 1:
+				AddTravelsByLand(selected->memberData.travelByLandhead, selected->memberData.travelByLandtail, selected->memberData.travelCounterByLand);
+				break;
+			case 2:
+				AddTravelsByAir(selected->memberData.travelByAirhead, selected->memberData.travelByAirtail, selected->memberData.travelCounterByAir);
+				break;
+			case 3:
+				AddTravelsByWater(selected->memberData.travelByWaterhead, selected->memberData.travelByWatertail, selected->memberData.travelCounterByWater);
+				break;
+			case 0:
+				return;
+			}
 			break;
 		case 3:
+			switch (TypeOfTravelMenu(total))
+			{
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 0:
+				return;
+			}
+			break;
+		case 4:
+			switch (TypeOfTravelMenu(total))
+			{
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 0:
+				return;
+			}
 			break;
 		case 0:
 			return;
 		}
-		break;
-	case 2:
-		switch (TypeOfTravelMenu(total))
-		{
-		case 1:
-			AddTravelsByLand(selected->memberData.travelByLandhead, selected->memberData.travelByLandtail, selected->memberData.travelCounterByLand);
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 0:
-			return;
-		}
-		break;
-	case 3:
-		switch (TypeOfTravelMenu(total))
-		{
-		case 1:
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 0:
-			return;
-		}
-		break;
-	case 4:
-		switch (TypeOfTravelMenu(total))
-		{
-		case 1:
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 0:
-			return;
-		}
-		break;
-	case 0:
-		return;
 	}
 }
 
@@ -558,6 +573,192 @@ void AddTravelsByLand(TravelByLandListNode*& head, TravelByLandListNode*& tail, 
 	}
 
 	RegisterNewTravelByLand(temp, counter);
+}
+
+void ListOfTravelsByWater(TravelByWaterListNode* head)
+{
+	if (head != nullptr)
+	{
+		DisplayStrippedTravelByWaterList(head);
+
+		switch (TravelsListMenu())
+		{
+		case 1:
+			// not needed for return
+			SearchTravelByWater(head);
+
+			system("pause");
+			system("cls");
+			break;
+		case 0:
+			system("cls");
+			return;
+		}
+
+	}
+	else {
+		std::cout << "No data available to view yet!\n\n";
+		system("pause");
+		system("cls");
+	}
+}
+
+void RegisterNewTravelByWater(TravelByWaterListNode* node, int& counter)
+{
+	int choice;
+
+	CinString(node->travelData.nameCompany, "Enter Company Name: ");
+	CinString(node->travelData.type, "Enter Type of Water Transportation: ");
+	CinString(node->travelData.date, "Enter Date [YYYY-MM-DD]: ");
+	CinString(node->travelData.port.origin, "Enter Port Origin: ");
+	CinString(node->travelData.port.target, "Enter Port Destination: ");
+
+	do
+	{
+		std::cout
+			<< "-- Status --\n"
+			<< "1. Complete\n"
+			<< "2. Cancelled\n"
+			<< "\n"
+			<< ":: ::\b\b\b";
+		std::cin >> choice;
+		if (0 > choice || choice > 2) {
+			system("cls");
+			std::cout << "Please ake sure to select from choices only\n\n";
+			system("pause");
+			system("cls");
+		}
+	} while (0 > choice || choice > 2);
+
+	switch (choice)
+	{
+	case 1:
+		node->travelData.status = "Complete";
+		break;
+	case 2:
+		node->travelData.status = "Cancelled";
+		break;
+	}
+
+	node->travelData.id = ++counter;
+
+	system("cls");
+
+	std::cout << "Travel Registered\n\n";
+
+	system("pause");
+	system("cls");
+}
+
+void AddTravelsByWater(TravelByWaterListNode*& head, TravelByWaterListNode*& tail, int& counter) {
+	TravelByWaterListNode* temp;
+	temp = new TravelByWaterListNode;
+
+	if (head == nullptr)
+	{
+		head = temp;
+		tail = temp;
+	}
+	else {
+		tail->afterMe = temp;
+		temp->beforeMe = tail; // advance part
+		tail = temp;
+	}
+
+	RegisterNewTravelByWater(temp, counter);
+}
+
+void ListOfTravelsByAir(TravelByAirListNode* head)
+{
+	if (head != nullptr)
+	{
+		DisplayStrippedTravelByAirList(head);
+
+		switch (TravelsListMenu())
+		{
+		case 1:
+			// not needed for return
+			SearchTravelByAir(head);
+
+			system("pause");
+			system("cls");
+			break;
+		case 0:
+			system("cls");
+			return;
+		}
+
+	}
+	else {
+		std::cout << "No data available to view yet!\n\n";
+		system("pause");
+		system("cls");
+	}
+}
+
+void RegisterNewTravelByAir(TravelByAirListNode* node, int& counter)
+{
+	int choice;
+
+	CinString(node->travelData.nameOfAirline, "Enter Airline Name: ");
+	CinString(node->travelData.seatType, "Enter Seat Type: ");
+	CinString(node->travelData.date, "Enter Date [YYYY-MM-DD]: ");
+	CinString(node->travelData.airport.origin, "Enter Airline Origin: ");
+	CinString(node->travelData.airport.target, "Enter Airline Destination: ");
+
+	do
+	{
+		std::cout
+			<< "-- Status --\n"
+			<< "1. Complete\n"
+			<< "2. Cancelled\n"
+			<< "\n"
+			<< ":: ::\b\b\b";
+		std::cin >> choice;
+		if (0 > choice || choice > 2) {
+			system("cls");
+			std::cout << "Please ake sure to select from choices only\n\n";
+			system("pause");
+			system("cls");
+		}
+	} while (0 > choice || choice > 2);
+
+	switch (choice)
+	{
+	case 1:
+		node->travelData.status = "Complete";
+		break;
+	case 2:
+		node->travelData.status = "Cancelled";
+		break;
+	}
+
+	node->travelData.id = ++counter;
+
+	system("cls");
+
+	std::cout << "Travel Registered\n\n";
+
+	system("pause");
+	system("cls");
+}
+
+void AddTravelsByAir(TravelByAirListNode*& head, TravelByAirListNode*& tail, int& counter) {
+	TravelByAirListNode* temp;
+	temp = new TravelByAirListNode;
+
+	if (head == nullptr)
+	{
+		head = temp;
+		tail = temp;
+	}
+	else {
+		tail->afterMe = temp;
+		temp->beforeMe = tail; // advance part
+		tail = temp;
+	}
+
+	RegisterNewTravelByAir(temp, counter);
 }
 
 // Helper Function
@@ -673,3 +874,110 @@ void SearchTravelByLand(TravelByLandListNode* head) {
 	}
 }
 
+void DisplayStrippedTravelByWaterList(TravelByWaterListNode* head) {
+	TravelByWaterListNode* current = head;
+
+	system("cls");
+	do
+	{
+		std::cout
+			<< current->travelData.id << ". " << current->travelData.date << " : "
+			<< current->travelData.port.origin << " -> " << current->travelData.port.target
+			<< " - " << current->travelData.type << " | " << current->travelData.status << " | "
+			<< "\n";
+		current = current->afterMe;
+	} while (current != nullptr);
+
+	std::cout << "\n";
+}
+
+void SearchTravelByAir(TravelByAirListNode* head) {
+	TravelByAirListNode* current = head;
+	bool isFound = false;
+	int idNeeded;
+
+	system("cls");
+
+	DisplayStrippedTravelByAirList(current);
+
+	std::cout << "Enter User ID: ";
+	std::cin >> idNeeded;
+	system("cls");
+
+	do
+	{
+		if (current->travelData.id == idNeeded)
+		{
+			isFound = true;
+			std::cout
+				<< "-- " << current->travelData.id << " --\n"
+				<< "Date     " << current->travelData.date << "\n"
+				<< "Company  " << current->travelData.nameOfAirline << "\n"
+				<< "Status   " << current->travelData.status << "\n"
+				<< "Travel Data:\n"
+				<< "> Type          " << current->travelData.seatType << "\n"
+				<< "> Origin        " << current->travelData.airport.origin << "\n"
+				<< "> Destination   " << current->travelData.airport.target << "\n";
+		}
+		current = current->afterMe;
+	} while (current != nullptr);
+
+	if (!isFound)
+	{
+		std::cout << "Travel ID is Invalid\n";
+	}
+}
+
+void DisplayStrippedTravelByAirList(TravelByAirListNode* head) {
+	TravelByAirListNode* current = head;
+
+	system("cls");
+	do
+	{
+		std::cout
+			<< current->travelData.id << ". " << current->travelData.date << " : "
+			<< current->travelData.airport.origin << " -> " << current->travelData.airport.target
+			<< " - " << current->travelData.seatType << " | " << current->travelData.status << " | "
+			<< "\n";
+		current = current->afterMe;
+	} while (current != nullptr);
+
+	std::cout << "\n";
+}
+
+void SearchTravelByAir(TravelByAirListNode* head) {
+	TravelByAirListNode* current = head;
+	bool isFound = false;
+	int idNeeded;
+
+	system("cls");
+
+	DisplayStrippedTravelByAirList(current);
+
+	std::cout << "Enter User ID: ";
+	std::cin >> idNeeded;
+	system("cls");
+
+	do
+	{
+		if (current->travelData.id == idNeeded)
+		{
+			isFound = true;
+			std::cout
+				<< "-- " << current->travelData.id << " --\n"
+				<< "Date     " << current->travelData.date << "\n"
+				<< "Company  " << current->travelData.nameOfAirline << "\n"
+				<< "Status   " << current->travelData.status << "\n"
+				<< "Travel Data:\n"
+				<< "> Type          " << current->travelData.seatType << "\n"
+				<< "> Origin        " << current->travelData.airport.origin << "\n"
+				<< "> Destination   " << current->travelData.airport.target << "\n";
+		}
+		current = current->afterMe;
+	} while (current != nullptr);
+
+	if (!isFound)
+	{
+		std::cout << "Travel ID is Invalid\n";
+	}
+}
