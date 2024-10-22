@@ -891,14 +891,14 @@ void DisplayStrippedTravelByWaterList(TravelByWaterListNode* head) {
 	std::cout << "\n";
 }
 
-void SearchTravelByAir(TravelByAirListNode* head) {
-	TravelByAirListNode* current = head;
+void SearchTravelByWater(TravelByWaterListNode* head) {
+	TravelByWaterListNode* current = head;
 	bool isFound = false;
 	int idNeeded;
 
 	system("cls");
 
-	DisplayStrippedTravelByAirList(current);
+	DisplayStrippedTravelByWaterList(current);
 
 	std::cout << "Enter User ID: ";
 	std::cin >> idNeeded;
@@ -912,12 +912,12 @@ void SearchTravelByAir(TravelByAirListNode* head) {
 			std::cout
 				<< "-- " << current->travelData.id << " --\n"
 				<< "Date     " << current->travelData.date << "\n"
-				<< "Company  " << current->travelData.nameOfAirline << "\n"
+				<< "Company  " << current->travelData.nameCompany << "\n"
 				<< "Status   " << current->travelData.status << "\n"
 				<< "Travel Data:\n"
-				<< "> Type          " << current->travelData.seatType << "\n"
-				<< "> Origin        " << current->travelData.airport.origin << "\n"
-				<< "> Destination   " << current->travelData.airport.target << "\n";
+				<< "> Type          " << current->travelData.type << "\n"
+				<< "> Origin        " << current->travelData.port.origin << "\n"
+				<< "> Destination   " << current->travelData.port.target << "\n";
 		}
 		current = current->afterMe;
 	} while (current != nullptr);
@@ -966,10 +966,10 @@ void SearchTravelByAir(TravelByAirListNode* head) {
 			std::cout
 				<< "-- " << current->travelData.id << " --\n"
 				<< "Date     " << current->travelData.date << "\n"
-				<< "Company  " << current->travelData.nameOfAirline << "\n"
+				<< "Airline  " << current->travelData.nameOfAirline << "\n"
 				<< "Status   " << current->travelData.status << "\n"
 				<< "Travel Data:\n"
-				<< "> Type          " << current->travelData.seatType << "\n"
+				<< "> Seat Type     " << current->travelData.seatType << "\n"
 				<< "> Origin        " << current->travelData.airport.origin << "\n"
 				<< "> Destination   " << current->travelData.airport.target << "\n";
 		}
