@@ -86,6 +86,10 @@ int UpdateMemberMenu();
 int TravelDataMenu();
 int TravelsListMenu();
 
+int UpdateLandTravelDataMenu();
+int UpdateWaterTravelDataMenu();
+int UpdateAirTravelDataMenu();
+
 int TypeOfTravelMenu(int);
 
 // Functioning Function
@@ -114,10 +118,6 @@ void RegisterNewTravelByAir(TravelByAirListNode*, int&);
 void UpdateAirTravelData(TravelByAirListNode*);
 void DeleteAirTravelData(TravelByAirListNode*& head, TravelByAirListNode*& tail);
 
-// Helper Function
-void CinString(std::string&, std::string);
-std::string StatusSetter();
-
 void DisplayStrippedMemberList(MemberListNode*);
 MemberListNode* SearchMember(MemberListNode*);
 
@@ -129,6 +129,10 @@ TravelByWaterListNode* SearchTravelByWater(TravelByWaterListNode*);
 
 void DisplayStrippedTravelByAirList(TravelByAirListNode*);
 TravelByAirListNode* SearchTravelByAir(TravelByAirListNode*);
+
+// Helper Function
+void CinString(std::string&, std::string);
+std::string StatusSetter();
 
 int main() {
 	// list of my members
@@ -1078,7 +1082,6 @@ void UpdateLandTravelData(TravelByLandListNode* head) {
 	system("pause");
 	system("cls");
 }
-
 
 void DisplayStrippedTravelByWaterList(TravelByWaterListNode* head) {
 	TravelByWaterListNode* current = head;
