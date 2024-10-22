@@ -99,14 +99,17 @@ void TravelsList(MemberListNode*);
 void ListOfTravelsByLand(TravelByLandListNode*);
 void AddTravelsByLand(TravelByLandListNode*&, TravelByLandListNode*&, int&);
 void RegisterNewTravelByLand(TravelByLandListNode*, int&);
+void DeleteLandTravelData(TravelByLandListNode*& head, TravelByLandListNode*& tail);
 
 void ListOfTravelsByWater(TravelByWaterListNode*);
 void AddTravelsByWater(TravelByWaterListNode*&, TravelByWaterListNode*&, int&);
 void RegisterNewTravelByWater(TravelByWaterListNode*, int&);
+void DeleteWaterTravelData(TravelByWaterListNode*& head, TravelByWaterListNode*& tail);
 
 void ListOfTravelsByAir(TravelByAirListNode*);
 void AddTravelsByAir(TravelByAirListNode*&, TravelByAirListNode*&, int&);
 void RegisterNewTravelByAir(TravelByAirListNode*, int&);
+void DeleteAirTravelData(TravelByAirListNode*& head, TravelByAirListNode*& tail);
 
 // Helper Function
 void CinString(std::string&, std::string);
@@ -115,7 +118,13 @@ void DisplayStrippedMemberList(MemberListNode*);
 MemberListNode* SearchMember(MemberListNode*);
 
 void DisplayStrippedTravelByLandList(TravelByLandListNode*);
-void SearchTravelByLand(TravelByLandListNode*);
+TravelByLandListNode* SearchTravelByLand(TravelByLandListNode*);
+
+void DisplayStrippedTravelByWaterList(TravelByWaterListNode*);
+TravelByWaterListNode* SearchTravelByWater(TravelByWaterListNode*);
+
+void DisplayStrippedTravelByAirList(TravelByAirListNode*);
+TravelByAirListNode* SearchTravelByAir(TravelByAirListNode*);
 
 int main() {
 	// list of my members
@@ -467,10 +476,22 @@ void TravelsList(MemberListNode* selected) {
 			switch (TypeOfTravelMenu(total))
 			{
 			case 1:
+				DeleteLandTravelData(
+					selected->memberData.travelByLandhead,
+					selected->memberData.travelByLandtail
+				);
 				break;
 			case 2:
+				DeleteAirTravelData(
+					selected->memberData.travelByAirhead,
+					selected->memberData.travelByAirtail
+				);
 				break;
 			case 3:
+				DeleteWaterTravelData(
+					selected->memberData.travelByWaterhead,
+					selected->memberData.travelByWatertail
+				);
 				break;
 			case 0:
 				return;
@@ -525,7 +546,7 @@ void RegisterNewTravelByLand(TravelByLandListNode* node, int& counter)
 		std::cout
 			<< "-- Status --\n"
 			<< "1. Complete\n"
-			<< "2. Cancelled\n" 
+			<< "2. Cancelled\n"
 			<< "\n"
 			<< ":: ::\b\b\b";
 		std::cin >> choice;
@@ -573,6 +594,37 @@ void AddTravelsByLand(TravelByLandListNode*& head, TravelByLandListNode*& tail, 
 	}
 
 	RegisterNewTravelByLand(temp, counter);
+}
+
+void DeleteLandTravelData(TravelByLandListNode*& head, TravelByLandListNode*& tail) {
+	// we need to have the value of the pointer to edit
+	TravelByLandListNode* selected = SearchTravelByLand(head);
+	std::string choice;
+
+	std::cout << "Do you want to continue [y/n] : ";
+	std::cin >> choice;
+
+	if (choice[0] == 'y')
+	{
+		if (head == selected) {
+			// set the next node after the head to forget head
+			head->afterMe->beforeMe = nullptr;
+			head = head->afterMe;
+		}
+		if (tail == selected) {
+			// set the before node before the tail to forget tail
+			tail->beforeMe->afterMe = nullptr;
+			tail = tail->beforeMe;
+		}
+		if (tail != selected && head != selected) {
+			// set the node after the selected to remember who is before the selected
+			selected->afterMe->beforeMe = selected->beforeMe;
+			selected->beforeMe->afterMe = selected->afterMe;
+		}
+		delete selected;
+	}
+
+	system("cls");
 }
 
 void ListOfTravelsByWater(TravelByWaterListNode* head)
@@ -668,6 +720,37 @@ void AddTravelsByWater(TravelByWaterListNode*& head, TravelByWaterListNode*& tai
 	RegisterNewTravelByWater(temp, counter);
 }
 
+void DeleteWaterTravelData(TravelByWaterListNode*& head, TravelByWaterListNode*& tail) {
+	// we need to have the value of the pointer to edit
+	TravelByWaterListNode* selected = SearchTravelByWater(head);
+	std::string choice;
+
+	std::cout << "Do you want to continue [y/n] : ";
+	std::cin >> choice;
+
+	if (choice[0] == 'y')
+	{
+		if (head == selected) {
+			// set the next node after the head to forget head
+			head->afterMe->beforeMe = nullptr;
+			head = head->afterMe;
+		}
+		if (tail == selected) {
+			// set the before node before the tail to forget tail
+			tail->beforeMe->afterMe = nullptr;
+			tail = tail->beforeMe;
+		}
+		if (tail != selected && head != selected) {
+			// set the node after the selected to remember who is before the selected
+			selected->afterMe->beforeMe = selected->beforeMe;
+			selected->beforeMe->afterMe = selected->afterMe;
+		}
+		delete selected;
+	}
+
+	system("cls");
+}
+
 void ListOfTravelsByAir(TravelByAirListNode* head)
 {
 	if (head != nullptr)
@@ -761,6 +844,37 @@ void AddTravelsByAir(TravelByAirListNode*& head, TravelByAirListNode*& tail, int
 	RegisterNewTravelByAir(temp, counter);
 }
 
+void DeleteAirTravelData(TravelByAirListNode*& head, TravelByAirListNode*& tail) {
+	// we need to have the value of the pointer to edit
+	TravelByAirListNode* selected = SearchTravelByAir(head);
+	std::string choice;
+
+	std::cout << "Do you want to continue [y/n] : ";
+	std::cin >> choice;
+
+	if (choice[0] == 'y')
+	{
+		if (head == selected) {
+			// set the next node after the head to forget head
+			head->afterMe->beforeMe = nullptr;
+			head = head->afterMe;
+		}
+		if (tail == selected) {
+			// set the before node before the tail to forget tail
+			tail->beforeMe->afterMe = nullptr;
+			tail = tail->beforeMe;
+		}
+		if (tail != selected && head != selected) {
+			// set the node after the selected to remember who is before the selected
+			selected->afterMe->beforeMe = selected->beforeMe;
+			selected->beforeMe->afterMe = selected->afterMe;
+		}
+		delete selected;
+	}
+
+	system("cls");
+}
+
 // Helper Function
 void CinString(std::string& storage, std::string instruction) {
 	std::cout << instruction << "\n";
@@ -837,7 +951,7 @@ void DisplayStrippedTravelByLandList(TravelByLandListNode* head) {
 	std::cout << "\n";
 }
 
-void SearchTravelByLand(TravelByLandListNode* head) {
+TravelByLandListNode* SearchTravelByLand(TravelByLandListNode* head) {
 	TravelByLandListNode* current = head;
 	bool isFound = false;
 	int idNeeded;
@@ -864,6 +978,7 @@ void SearchTravelByLand(TravelByLandListNode* head) {
 				<< "> Type          " << current->travelData.type << "\n"
 				<< "> Origin        " << current->travelData.destination.origin << "\n"
 				<< "> Destination   " << current->travelData.destination.target << "\n";
+			return current;
 		}
 		current = current->afterMe;
 	} while (current != nullptr);
@@ -872,6 +987,8 @@ void SearchTravelByLand(TravelByLandListNode* head) {
 	{
 		std::cout << "Travel ID is Invalid\n";
 	}
+
+	return nullptr;
 }
 
 void DisplayStrippedTravelByWaterList(TravelByWaterListNode* head) {
@@ -891,7 +1008,7 @@ void DisplayStrippedTravelByWaterList(TravelByWaterListNode* head) {
 	std::cout << "\n";
 }
 
-void SearchTravelByWater(TravelByWaterListNode* head) {
+TravelByWaterListNode* SearchTravelByWater(TravelByWaterListNode* head) {
 	TravelByWaterListNode* current = head;
 	bool isFound = false;
 	int idNeeded;
@@ -918,6 +1035,7 @@ void SearchTravelByWater(TravelByWaterListNode* head) {
 				<< "> Type          " << current->travelData.type << "\n"
 				<< "> Origin        " << current->travelData.port.origin << "\n"
 				<< "> Destination   " << current->travelData.port.target << "\n";
+			return current;
 		}
 		current = current->afterMe;
 	} while (current != nullptr);
@@ -926,6 +1044,8 @@ void SearchTravelByWater(TravelByWaterListNode* head) {
 	{
 		std::cout << "Travel ID is Invalid\n";
 	}
+	return nullptr;
+
 }
 
 void DisplayStrippedTravelByAirList(TravelByAirListNode* head) {
@@ -945,7 +1065,7 @@ void DisplayStrippedTravelByAirList(TravelByAirListNode* head) {
 	std::cout << "\n";
 }
 
-void SearchTravelByAir(TravelByAirListNode* head) {
+TravelByAirListNode* SearchTravelByAir(TravelByAirListNode* head) {
 	TravelByAirListNode* current = head;
 	bool isFound = false;
 	int idNeeded;
@@ -972,6 +1092,7 @@ void SearchTravelByAir(TravelByAirListNode* head) {
 				<< "> Seat Type     " << current->travelData.seatType << "\n"
 				<< "> Origin        " << current->travelData.airport.origin << "\n"
 				<< "> Destination   " << current->travelData.airport.target << "\n";
+			return current;
 		}
 		current = current->afterMe;
 	} while (current != nullptr);
@@ -980,4 +1101,6 @@ void SearchTravelByAir(TravelByAirListNode* head) {
 	{
 		std::cout << "Travel ID is Invalid\n";
 	}
+	return nullptr;
+
 }
