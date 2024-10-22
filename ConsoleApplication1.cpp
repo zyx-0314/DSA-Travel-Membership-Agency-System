@@ -99,20 +99,24 @@ void TravelsList(MemberListNode*);
 void ListOfTravelsByLand(TravelByLandListNode*);
 void AddTravelsByLand(TravelByLandListNode*&, TravelByLandListNode*&, int&);
 void RegisterNewTravelByLand(TravelByLandListNode*, int&);
+void UpdateLandTravelData(TravelByLandListNode*);
 void DeleteLandTravelData(TravelByLandListNode*& head, TravelByLandListNode*& tail);
 
 void ListOfTravelsByWater(TravelByWaterListNode*);
 void AddTravelsByWater(TravelByWaterListNode*&, TravelByWaterListNode*&, int&);
 void RegisterNewTravelByWater(TravelByWaterListNode*, int&);
+void UpdateWaterTravelData(TravelByWaterListNode*);
 void DeleteWaterTravelData(TravelByWaterListNode*& head, TravelByWaterListNode*& tail);
 
 void ListOfTravelsByAir(TravelByAirListNode*);
 void AddTravelsByAir(TravelByAirListNode*&, TravelByAirListNode*&, int&);
 void RegisterNewTravelByAir(TravelByAirListNode*, int&);
+void UpdateAirTravelData(TravelByAirListNode*);
 void DeleteAirTravelData(TravelByAirListNode*& head, TravelByAirListNode*& tail);
 
 // Helper Function
 void CinString(std::string&, std::string);
+std::string StatusSetter();
 
 void DisplayStrippedMemberList(MemberListNode*);
 MemberListNode* SearchMember(MemberListNode*);
@@ -330,6 +334,98 @@ int TravelsListMenu() {
 	return choice;
 }
 
+int UpdateLandTravelDataMenu() {
+	int choice = -1;
+
+	do
+	{
+		std::cout
+			<< "-- Update Land Travel Data\n"
+			<< "1. Company\n"
+			<< "2. Type\n"
+			<< "3. Date\n"
+			<< "4. Station Origin\n"
+			<< "5. Station Destination\n"
+			<< "6. Status\n"
+			<< "0. Exit\n"
+			<< "\n"
+			<< ":: ::\b\b\b";
+		std::cin >> choice;
+
+		if (0 > choice || choice > 1) {
+			system("cls");
+			std::cout << "Please ake sure to select from choices only\n\n";
+			system("pause");
+			system("cls");
+		}
+	} while (0 > choice || choice > 1);
+
+	system("cls");
+	return choice;
+}
+
+int UpdateWaterTravelDataMenu() {
+	int choice = -1;
+
+	do
+	{
+		std::cout
+			<< "-- Update Water Travel Data\n"
+			<< "1. Port\n"
+			<< "2. Schedule\n"
+			<< "3. Type\n"
+			<< "4. Date\n"
+			<< "5. Port Origin\n"
+			<< "6. Port Destination\n"
+			<< "7. Status\n"
+			<< "0. Exit\n"
+			<< "\n"
+			<< ":: ::\b\b\b";
+		std::cin >> choice;
+
+		if (0 > choice || choice > 1) {
+			system("cls");
+			std::cout << "Please ake sure to select from choices only\n\n";
+			system("pause");
+			system("cls");
+		}
+	} while (0 > choice || choice > 1);
+
+	system("cls");
+	return choice;
+}
+
+int UpdateAirTravelDataMenu() {
+	int choice = -1;
+
+	do
+	{
+		std::cout
+			<< "-- Update Air Travel Data\n"
+			<< "1. Airline\n"
+			<< "2. Schedule\n"
+			<< "3. Seat type\n"
+			<< "4. Date\n"
+			<< "5. Airline Origin\n"
+			<< "6. Airline Destination\n"
+			<< "7. Status\n"
+			<< "0. Exit\n"
+			<< "\n"
+			<< ":: ::\b\b\b";
+		std::cin >> choice;
+
+		if (0 > choice || choice > 1) {
+			system("cls");
+			std::cout << "Please ake sure to select from choices only\n\n";
+			system("pause");
+			system("cls");
+		}
+	} while (0 > choice || choice > 1);
+
+	system("cls");
+	return choice;
+}
+
 // Functioning Functions
 void RegisterNewMember(MemberData& temp, int idNumber) {
 	CinString(temp.fName, "Enter First Name: ");
@@ -434,10 +530,10 @@ void TravelsList(MemberListNode* selected) {
 				ListOfTravelsByLand(selected->memberData.travelByLandhead);
 				break;
 			case 2:
-				ListOfTravelsByAir(selected->memberData.travelByAirhead);
+				ListOfTravelsByWater(selected->memberData.travelByWaterhead);
 				break;
 			case 3:
-				ListOfTravelsByWater(selected->memberData.travelByWaterhead);
+				ListOfTravelsByAir(selected->memberData.travelByAirhead);
 				break;
 			case 0:
 				return;
@@ -450,10 +546,10 @@ void TravelsList(MemberListNode* selected) {
 				AddTravelsByLand(selected->memberData.travelByLandhead, selected->memberData.travelByLandtail, selected->memberData.travelCounterByLand);
 				break;
 			case 2:
-				AddTravelsByAir(selected->memberData.travelByAirhead, selected->memberData.travelByAirtail, selected->memberData.travelCounterByAir);
+				AddTravelsByWater(selected->memberData.travelByWaterhead, selected->memberData.travelByWatertail, selected->memberData.travelCounterByWater);
 				break;
 			case 3:
-				AddTravelsByWater(selected->memberData.travelByWaterhead, selected->memberData.travelByWatertail, selected->memberData.travelCounterByWater);
+				AddTravelsByAir(selected->memberData.travelByAirhead, selected->memberData.travelByAirtail, selected->memberData.travelCounterByAir);
 				break;
 			case 0:
 				return;
@@ -463,10 +559,13 @@ void TravelsList(MemberListNode* selected) {
 			switch (TypeOfTravelMenu(total))
 			{
 			case 1:
+				UpdateLandTravelData(selected->memberData.travelByLandhead);
 				break;
 			case 2:
+				UpdateWaterTravelData(selected->memberData.travelByWaterhead);
 				break;
 			case 3:
+				UpdateAirTravelData(selected->memberData.travelByAirhead);
 				break;
 			case 0:
 				return;
@@ -482,15 +581,15 @@ void TravelsList(MemberListNode* selected) {
 				);
 				break;
 			case 2:
-				DeleteAirTravelData(
-					selected->memberData.travelByAirhead,
-					selected->memberData.travelByAirtail
-				);
-				break;
-			case 3:
 				DeleteWaterTravelData(
 					selected->memberData.travelByWaterhead,
 					selected->memberData.travelByWatertail
+				);
+				break;
+			case 3:
+				DeleteAirTravelData(
+					selected->memberData.travelByAirhead,
+					selected->memberData.travelByAirtail
 				);
 				break;
 			case 0:
@@ -541,32 +640,7 @@ void RegisterNewTravelByLand(TravelByLandListNode* node, int& counter)
 	CinString(node->travelData.destination.origin, "Enter Origin: ");
 	CinString(node->travelData.destination.target, "Enter Destination: ");
 
-	do
-	{
-		std::cout
-			<< "-- Status --\n"
-			<< "1. Complete\n"
-			<< "2. Cancelled\n"
-			<< "\n"
-			<< ":: ::\b\b\b";
-		std::cin >> choice;
-		if (0 > choice || choice > 2) {
-			system("cls");
-			std::cout << "Please ake sure to select from choices only\n\n";
-			system("pause");
-			system("cls");
-		}
-	} while (0 > choice || choice > 2);
-
-	switch (choice)
-	{
-	case 1:
-		node->travelData.status = "Complete";
-		break;
-	case 2:
-		node->travelData.status = "Cancelled";
-		break;
-	}
+	node->travelData.status = StatusSetter();
 
 	node->travelData.id = ++counter;
 
@@ -662,35 +736,11 @@ void RegisterNewTravelByWater(TravelByWaterListNode* node, int& counter)
 	CinString(node->travelData.nameCompany, "Enter Company Name: ");
 	CinString(node->travelData.type, "Enter Type of Water Transportation: ");
 	CinString(node->travelData.date, "Enter Date [YYYY-MM-DD]: ");
+	CinString(node->travelData.sched, "Enter Sched [XX-XX-A/PM]: ");
 	CinString(node->travelData.port.origin, "Enter Port Origin: ");
 	CinString(node->travelData.port.target, "Enter Port Destination: ");
 
-	do
-	{
-		std::cout
-			<< "-- Status --\n"
-			<< "1. Complete\n"
-			<< "2. Cancelled\n"
-			<< "\n"
-			<< ":: ::\b\b\b";
-		std::cin >> choice;
-		if (0 > choice || choice > 2) {
-			system("cls");
-			std::cout << "Please ake sure to select from choices only\n\n";
-			system("pause");
-			system("cls");
-		}
-	} while (0 > choice || choice > 2);
-
-	switch (choice)
-	{
-	case 1:
-		node->travelData.status = "Complete";
-		break;
-	case 2:
-		node->travelData.status = "Cancelled";
-		break;
-	}
+	node->travelData.status = StatusSetter();
 
 	node->travelData.id = ++counter;
 
@@ -781,40 +831,14 @@ void ListOfTravelsByAir(TravelByAirListNode* head)
 
 void RegisterNewTravelByAir(TravelByAirListNode* node, int& counter)
 {
-	int choice;
-
 	CinString(node->travelData.nameOfAirline, "Enter Airline Name: ");
 	CinString(node->travelData.seatType, "Enter Seat Type: ");
 	CinString(node->travelData.date, "Enter Date [YYYY-MM-DD]: ");
+	CinString(node->travelData.sched, "Enter Sched [XX-XX-A/PM]: ");
 	CinString(node->travelData.airport.origin, "Enter Airline Origin: ");
 	CinString(node->travelData.airport.target, "Enter Airline Destination: ");
 
-	do
-	{
-		std::cout
-			<< "-- Status --\n"
-			<< "1. Complete\n"
-			<< "2. Cancelled\n"
-			<< "\n"
-			<< ":: ::\b\b\b";
-		std::cin >> choice;
-		if (0 > choice || choice > 2) {
-			system("cls");
-			std::cout << "Please ake sure to select from choices only\n\n";
-			system("pause");
-			system("cls");
-		}
-	} while (0 > choice || choice > 2);
-
-	switch (choice)
-	{
-	case 1:
-		node->travelData.status = "Complete";
-		break;
-	case 2:
-		node->travelData.status = "Cancelled";
-		break;
-	}
+	node->travelData.status = StatusSetter();
 
 	node->travelData.id = ++counter;
 
@@ -879,6 +903,37 @@ void DeleteAirTravelData(TravelByAirListNode*& head, TravelByAirListNode*& tail)
 void CinString(std::string& storage, std::string instruction) {
 	std::cout << instruction << "\n";
 	std::cin >> storage;
+}
+
+std::string StatusSetter() {
+	int choice;
+
+	do
+	{
+		std::cout
+			<< "-- Status --\n"
+			<< "1. Complete\n"
+			<< "2. Cancelled\n"
+			<< "\n"
+			<< ":: ::\b\b\b";
+		std::cin >> choice;
+		if (0 > choice || choice > 2) {
+			system("cls");
+			std::cout << "Please ake sure to select from choices only\n\n";
+			system("pause");
+			system("cls");
+		}
+	} while (0 > choice || choice > 2);
+
+	switch (choice)
+	{
+	case 1:
+		return "Complete";
+		break;
+	case 2:
+		return "Cancelled";
+		break;
+	}
 }
 
 void DisplayStrippedMemberList(MemberListNode* head) {
@@ -991,6 +1046,40 @@ TravelByLandListNode* SearchTravelByLand(TravelByLandListNode* head) {
 	return nullptr;
 }
 
+void UpdateLandTravelData(TravelByLandListNode* head) {
+	// we need to have the value of the pointer to edit
+	TravelByLandListNode* selected = SearchTravelByLand(head);
+
+	switch (UpdateLandTravelDataMenu())
+	{
+	case 1:
+		CinString(selected->travelData.nameCompany, "Enter Company Name: ");
+		break;
+	case 2:
+		CinString(selected->travelData.type, "Enter Updated Type: ");
+		break;
+	case 3:
+		CinString(selected->travelData.date, "Enter Updated Date [YYYY-MM-DD]: ");
+		break;
+	case 4:
+		CinString(selected->travelData.destination.origin, "Enter Updated Station Origin: ");
+		break;
+	case 5:
+		CinString(selected->travelData.destination.target, "Enter Updated Station Destination: ");
+		break;
+	case 6:
+		selected->travelData.status = StatusSetter();
+		break;
+	}
+
+
+	system("cls");
+	std::cout << "Information has been updated!\n\n";
+	system("pause");
+	system("cls");
+}
+
+
 void DisplayStrippedTravelByWaterList(TravelByWaterListNode* head) {
 	TravelByWaterListNode* current = head;
 
@@ -1048,6 +1137,42 @@ TravelByWaterListNode* SearchTravelByWater(TravelByWaterListNode* head) {
 
 }
 
+void UpdateWaterTravelData(TravelByWaterListNode* head) {
+	// we need to have the value of the pointer to edit
+	TravelByWaterListNode* selected = SearchTravelByWater(head);
+
+	switch (UpdateWaterTravelDataMenu())
+	{
+	case 1:
+		CinString(selected->travelData.nameCompany, "Enter Company Name: ");
+		break;
+	case 2:
+		CinString(selected->travelData.sched, "Enter Updated Sched [XX-XX-A/PM]: ");
+		break;
+	case 3:
+		CinString(selected->travelData.type, "Enter Updated Type: ");
+		break;
+	case 4:
+		CinString(selected->travelData.date, "Enter Updated Date [YYYY-MM-DD]: ");
+		break;
+	case 5:
+		CinString(selected->travelData.port.origin, "Enter Updated Port Origin: ");
+		break;
+	case 6:
+		CinString(selected->travelData.port.target, "Enter Updated Port Destination: ");
+		break;
+	case 7:
+		selected->travelData.status = StatusSetter();
+		break;
+	}
+
+
+	system("cls");
+	std::cout << "Information has been updated!\n\n";
+	system("pause");
+	system("cls");
+}
+
 void DisplayStrippedTravelByAirList(TravelByAirListNode* head) {
 	TravelByAirListNode* current = head;
 
@@ -1103,4 +1228,40 @@ TravelByAirListNode* SearchTravelByAir(TravelByAirListNode* head) {
 	}
 	return nullptr;
 
+}
+
+void UpdateAirTravelData(TravelByAirListNode* head) {
+	// we need to have the value of the pointer to edit
+	TravelByAirListNode* selected = SearchTravelByAir(head);
+
+	switch (UpdateAirTravelDataMenu())
+	{
+	case 1:
+		CinString(selected->travelData.nameOfAirline, "Enter Airline Name: ");
+		break;
+	case 2:
+		CinString(selected->travelData.sched, "Enter Updated Sched [XX-XX-A/PM]: ");
+		break;
+	case 3:
+		CinString(selected->travelData.seatType, "Enter Updated Seat Type: ");
+		break;
+	case 4:
+		CinString(selected->travelData.date, "Enter Updated Date  [YYYY-MM-DD]: ");
+		break;
+	case 5:
+		CinString(selected->travelData.airport.origin, "Enter Updated Airline Origin: ");
+		break;
+	case 6:
+		CinString(selected->travelData.airport.target, "Enter Updated Airline Destination: ");
+		break;
+	case 7:
+		selected->travelData.status = StatusSetter();
+		break;
+	}
+
+
+	system("cls");
+	std::cout << "Information has been updated!\n\n";
+	system("pause");
+	system("cls");
 }
