@@ -7,11 +7,11 @@
   <a href="https://github.com/zyx-0314/">
     <img src="./assets/nyebe_logo_wt_250px.png" alt="Nyebe" width="130" height="130">
   </a>
-  <h3 align="center">Basic Input, Output, and Conditionals</h3>
+  <h3 align="center">Travel Membership Agency</h3>
 </div>
 
 <div align="center">
-  A simple C++ system that records travels using a membership system. The system is capable of storing travel booking data for three types of travel: by land, by water, or by air.
+  A C++ console application that records travel bookings using a membership system.
 </div>
 
 <br/>
@@ -21,9 +21,13 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li><a href="#overview">Overview</a></li>
-    <li><a href="#key-features">Key Features</a></li>
-    <li><a href="#technology">Technology</a></li>
+    <li>
+      <a href="#overview">Overview</a>
+      <ol>
+        <li><a href="#key-features">Key Features</a></li>
+        <li><a href="#technology">Technology</a></li>
+      </ol>
+    </li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#resources">Resources</a></li>
   </ol>
@@ -33,15 +37,14 @@
 
 ## Overview
 
-**Basic Input, Output, and Conditionals** is a C++ program designed to simulate a membership system for travel bookings. The system allows users to perform CRUD (Create, Read, Update, Delete) operations on members of the system, each of whom can book travel by land, water, or air. The system uses a simple menu-driven interface and manages data through a linked list.
+**Travel Membership Agency** is a C++ console application that helps manage a membership system for travel bookings. The system allows users to record, list, update, and delete travel bookings for three types of travel: by land, by water, or by air. Members can be registered with their travel information, and their details can be modified or removed through a simple menu-based interface.
 
 ### Key Features
 
-- **Add a New Member**: Register a new member and store their travel data.
-- **List All Members**: Display all registered members and their travel information.
-- **Update Member Data**: Modify the data of an existing member.
-- **Delete Member**: Remove a member from the system.
-- **CRUD Operations**: Implements basic Create, Read, Update, Delete functionality.
+- **Add New Member**: Register new members and store their travel booking information.
+- **List Members**: View a list of all members in the system.
+- **Update Member Data**: Modify existing member details and travel booking information.
+- **Delete Member**: Remove members from the system.
 
 ### Technology
 
@@ -52,4 +55,4 @@
 | Title                      | Purpose                                       | Link                                        |
 |----------------------------|-----------------------------------------------|---------------------------------------------|
 | C++ Documentation          | Reference for C++ language features           | https://cplusplus.com/doc/                  |
-| Linked List in C++         | Guide to implementing linked lists in C++      | https://www.geeksforgeeks.org/linked-list/   |
+| Linked List Implementation | Guide for implementing linked lists in C++     | https://www.geeksforgeeks.org/linked-list-in-cpp/ |
