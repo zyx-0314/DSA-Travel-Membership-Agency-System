@@ -128,6 +128,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleApplication1.cpp" />
+    <ClCompile Include="Member.cpp" />
+    <ClCompile Include="TravelByAir.cpp" />
+    <ClCompile Include="TravelByLand.cpp" />
+    <ClCompile Include="TravelByWater.cpp" />
+    <ClCompile Include="TravelData.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Member.h" />
+    <ClInclude Include="TravelByAir.h" />
+    <ClInclude Include="TravelByLand.h" />
+    <ClInclude Include="TravelByWater.h" />
+    <ClInclude Include="TravelData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
