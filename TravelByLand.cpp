@@ -30,8 +30,6 @@ void TravelByLand::ListOfTravelsByLand(TravelByLandListNode* head)
 
 void TravelByLand::RegisterNewTravelByLand(TravelByLandListNode* node, int& counter)
 {
-	int choice;
-
 	CinString(node->travelData.nameCompany, "Enter Company Name: ");
 	CinString(node->travelData.type, "Enter Type of Land Transportation: ");
 	CinString(node->travelData.date, "Enter Date [YYYY-MM-DD]: ");
